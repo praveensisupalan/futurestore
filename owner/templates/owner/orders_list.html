@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{%block body_block%}
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <table class="table">
+                <tr>
+                    <th>product Name</th>
+                    <th>Category</th>
+                    <th>User</th>
+                    <th>Created date</th>
+                    <th>Action</th>
+                </tr>
+                {%for order in orders%}
+                <tr>
+                    <td>{{order.product.product_name}}</td>
+                    <td>{{order.product.category.category_name}}</td>
+                    <td>{{order.user}}</td>
+                    <td>{{order.date}}</td>
+                    <td><a href="{%url 'order_detail' order.id%}">view</a></td>
+                </tr>
+                {%endfor%}
+            </table>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+{%endblock%}

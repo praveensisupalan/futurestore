@@ -1,0 +1,44 @@
+{%extends 'base.html'%}
+{%block body_block%}
+
+<div class="container-fluid">
+    <div class="row gx•4 gx-lg•5 row-cots-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        <div class="col-4"></div>
+        <div class="col-4">
+
+            <div class="card h-100">
+                <!-- Product image-->
+                <img class="card-img-top" src="{{order.product.image.url}}" alt="..."/>
+                <!-- Product details-->
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <!-- Product name-->
+                        <h5 class="fw-bolder">{{order.product.product_name}}</h5>
+                        <!-- Product price-->
+                        ${{order.product.price}}
+                        <p>{{order.product.description}}</p>
+                        <p>{{order.product.category}}</p>
+                    </div>
+                </div>
+                <!-- Product actions-->
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                </div>
+                <ul class=" list-group list-group-flush" >
+                    <li class="list-group-item">Address:{{order.delivery_address}}</li>
+                    <li class="list-group-item">customer:{{order.user}}</li>
+                    <li class="list-group-item">email:{{order.email}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-4">
+            <form action="" method="post">
+                {%csrf_token%}
+                {{form.as_p}}
+                <input type="submit" value="update">
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{%endblock%}
