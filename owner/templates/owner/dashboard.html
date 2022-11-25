@@ -1,4 +1,4 @@
-{%extends 'base.html'%}
+{%extends 'owner/admin_base.html'%}
 {%block body_block%}
 
 <div class="container">
@@ -8,7 +8,7 @@
             <h1>Welcome {{request.user}}</h1>
             <d1V class="border border-info">
                 NewOrders # {{count}}
-                <a href="{%url 'orders_list'%}">view</a>
+                <a href="{%url 'orders_list'%} " class="btn btn-info">view</a>
 
         </div>
         <div class="col-4"></div>

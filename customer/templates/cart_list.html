@@ -22,13 +22,17 @@
             </div>
         </div>
         <div class="col-2">
-            qty:{{cart.qty}}
-            status:{{cart.status}}
+            <p> qty:{{cart.qty}}
+            </p>
+            <p> status:{{cart.status}}
+            </p>
         </div>
         <div class="col-2">
-            <a href="" class="btn btn-outline-danger">Remove</a>
+            <a href="{%url 'remove' cart.id%}" class="btn btn-outline-danger">cancel</a>
+
             {%if cart.status != "order-placed"%}
             <a href="{%url 'place_order' cart.id cart.product.id%}" class="btn btn-outline-success">Checkout</a>
+
 
             {%endif%}
         </div>

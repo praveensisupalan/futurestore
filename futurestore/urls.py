@@ -18,8 +18,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# from rest_framework.routers import DefaultRouter
+# from storeapi import views
+#
+# router = DefaultRouter()
+# router.register('api/v1/registration', views.UserRegistrationView, basename="register")
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("", include("customer.urls")),
-    path("dashboard",include("owner.urls"))
-]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('admin/', admin.site.urls),
+                  path("", include("customer.urls")),
+                  path("dashboard/", include("owner.urls")),
+                  path("api/", include("storeapi.urls"))
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

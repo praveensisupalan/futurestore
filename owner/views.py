@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, ListView, DetailView
-from owner.models import Orders
+from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from owner.models import Orders, Categorys, Products
 from owner.forms import OrderUpdateForm
 from django.core.mail import send_mail
+from customer.decorators import signin_required
+from django.utils.decorators import method_decorator
+from django.urls import reverse_lazy
 
 
 # Create your views here.
-
+@method_decorator(signin_required, name="dispatch")
 class AdminDashboardView(TemplateView):
     template_name = "owner/dashboard.html"
 
@@ -17,6 +20,7 @@ class AdminDashboardView(TemplateView):
         return context
 
 
+@method_decorator(signin_required, name="dispatch")
 class OrdersListView(ListView):
     model = Orders
     template_name = "owner/orders_list.html"
@@ -26,6 +30,7 @@ class OrdersListView(ListView):
         return Orders.objects.filter(status="order-placed")
 
 
+@method_decorator(signin_required, name="dispatch")
 class OrderDetailView(DetailView):
     model = Orders
     template_name = "owner/order_detail.html"
@@ -42,10 +47,10 @@ class OrderDetailView(DetailView):
         order = self.get_object()
         form = OrderUpdateForm(request.POST)
         if form.is_valid():
-            order.status=form.cleaned_data.get("status")
-            order.expected_delivery_date =form.cleaned_data.get("expected_delivery_date")
+            order.status = form.cleaned_data.get("status")
+            order.expected_delivery_date = form.cleaned_data.get("expected_delivery_date")
             order.save()
-            dt=form.cleaned_data.get("expected_delivery_date")
+            dt = form.cleaned_data.get("expected_delivery_date")
             send_mail(
                 "order conformation",
                 f"Hai {request.user} your order has been conformed and expected to delivered on{dt}",
@@ -53,3 +58,5 @@ class OrderDetailView(DetailView):
                 ["praveenvandnam16@gmail.com"]
             )
         return redirect("dashboard")
+
+
